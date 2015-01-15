@@ -7,6 +7,9 @@
     <string name="username">Username</string>
     <string name="Login">Login</string>
     <string name="title_activity_camera">CameraActivity</string>
+    <string name="sendPhotoButton">Envoyer par mail</string>
+    <string name="addInterestPointButton">Ajouter point d\'interet  </string>
+    <string name="title_activity_photo">PhotoActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="btnImport">Imports</string>
     <string name="btnCamera">Take Photo</string>
