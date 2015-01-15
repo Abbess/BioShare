@@ -8,5 +8,8 @@
     <string name="Login">Login</string>
     <string name="title_activity_camera">CameraActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="btnImport">Imports</string>
+    <string name="btnCamera">Take Photo</string>
+    <string name="title_activity_home">HomeActivity</string>
 
 </resources>
