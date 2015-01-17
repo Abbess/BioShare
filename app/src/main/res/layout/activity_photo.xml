@@ -27,7 +27,7 @@
             android:layout_height="fill_parent"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/plante" />
+             />
     </LinearLayout>
 
     <LinearLayout

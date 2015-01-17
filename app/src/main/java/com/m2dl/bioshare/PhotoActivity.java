@@ -1,23 +1,43 @@
 package com.m2dl.bioshare;
 
+import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.m2dl.bioshare.mail.Mail;
 import com.m2dl.bioshare.mail.MailAsyncTask;
 
+import java.io.File;
+
 
 public class PhotoActivity extends ActionBarActivity implements LocationListener{
+    private Uri imageUri;
+    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+    private static final int IMAGE_FROM_GALLERY = 1024;
+    private String pseudo;
+    private TextView pseudotext;
+
     private Button addInterestPointButton;
     private Button sendPhotoButton;
 
@@ -52,6 +72,17 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
 
+        if(getSourceType()==1){
+            //setPseudoText();
+            takePhoto();
+        }else{
+            //setPseudoText();
+            Intent i = new Intent(
+                    Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+            startActivityForResult(i, IMAGE_FROM_GALLERY);
+        }
 
         addInterestPointButton=(Button)findViewById(R.id.addInterestPointButton);
         addInterestPointButton.setOnClickListener(
@@ -111,6 +142,33 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
     }
 
 
+    private int getSourceType(){
+        Intent intent = getIntent();
+        String type = intent.getStringExtra("SourceType");
+
+        if(type.equals("Camera"))
+            return 1;
+        else if(type.equals("Gallery"))
+            return 2;
+        else
+            return -1;
+    }
+
+    private void setPseudoText(){
+        Intent intent = getIntent();
+        pseudo = intent.getStringExtra("Pseudo");
+        pseudotext= (TextView)findViewById(R.id.pseudo);
+        pseudotext.setText("Pseudo: "+pseudo);
+    }
+
+    public void takePhoto() {
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                Uri.fromFile(photo));
+        imageUri = Uri.fromFile(photo);
+        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -135,31 +193,7 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
 
     public void getLocation(){
 
-/*
-        // Acquire a reference to the system Location Manager
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-// Define a listener that responds to location updates
-        LocationListener locationListener = new LocationListener() {
-            public void onLocationChanged(Location location) {
-                // Called when a new location is found by the network location provider.
-           //     makeUseOfNewLocation(location);
-            }
-
-            public void onStatusChanged(String provider, int status, Bundle extras) {}
-
-            public void onProviderEnabled(String provider) {}
-
-            public void onProviderDisabled(String provider) {}
-        };
-
-// Register the listener with the Location Manager to receive location updates
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-
-        String locationProvider = LocationManager.NETWORK_PROVIDER;
-// Or use LocationManager.GPS_PROVIDER
-
-        Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);*/
         LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if(location!= null){
@@ -170,4 +204,66 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
     else
             Log.e("nukk","nulll");
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            //Si l'activité était une prise de photo
+            case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri selectedImage = imageUri;
+                    getContentResolver().notifyChange(selectedImage, null);
+                    ImageView imageView = (ImageView) findViewById(R.id.imageViewPhoto);
+                    ContentResolver cr = getContentResolver();
+                    Bitmap bitmap=null;
+                    try {
+                        bitmap = android.provider.MediaStore.Images.Media
+                                .getBitmap(cr, selectedImage);
+
+                        imageView.setImageBitmap(bitmap);
+                        Toast.makeText(this, selectedImage.toString(),
+                                Toast.LENGTH_LONG).show();
+
+                    } catch (Exception e) {
+                        Toast.makeText(this, "Failed to load", Toast.LENGTH_SHORT)
+                                .show();
+                        Log.e("Camera", e.toString());
+                    }
+
+                }
+                break;
+            case IMAGE_FROM_GALLERY:
+                if(resultCode == Activity.RESULT_OK){
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String filePath = cursor.getString(columnIndex);
+                    cursor.close();
+
+                    Bitmap yourSelectedImage = BitmapFactory.decodeFile(filePath);
+
+                    ImageView imageView = (ImageView) findViewById(R.id.imageViewPhoto);
+
+                    imageView.setImageBitmap(yourSelectedImage);
+
+                    imageView.setOnTouchListener(new View.OnTouchListener(){
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            Log.i("X",String.valueOf(event.getX())+"");
+                            Log.i("y",String.valueOf(event.getY())+"");
+                            return true;
+                        }
+                    });
+
+                }
+                break;
+        }
+    }
+
 }

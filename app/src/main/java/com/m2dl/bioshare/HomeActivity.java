@@ -35,7 +35,7 @@ public class HomeActivity extends ActionBarActivity {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, CameraActivity.class);
+                Intent intent = new Intent(HomeActivity.this, PhotoActivity.class);
                 //intent.putExtra("Pseudo", "testPseudo");
                 intent.putExtra("SourceType", "Camera");
                 startActivity(intent);
@@ -46,7 +46,7 @@ public class HomeActivity extends ActionBarActivity {
         btnImport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, CameraActivity.class);
+                Intent intent = new Intent(HomeActivity.this, PhotoActivity.class);
                 //intent.putExtra("Pseudo", "testPseudo");
                 intent.putExtra("SourceType", "Gallery");
                 startActivity(intent);
