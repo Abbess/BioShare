@@ -50,7 +50,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this, CameraActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra("Pseudo", username.getText().toString());
         startActivity(intent);
     }

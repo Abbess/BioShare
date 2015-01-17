@@ -3,7 +3,9 @@ package com.m2dl.bioshare;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -21,24 +23,44 @@ import java.io.File;
 public class CameraActivity extends ActionBarActivity {
     private Uri imageUri;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+    private static final int IMAGE_FROM_GALLERY = 1024;
     private String pseudo;
     private TextView pseudotext;
-    private int count=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-        setPseudoText();
-        if(count==1)
+        if(getSourceType()==1){
+            setPseudoText();
             takePhoto();
+        }else{
+            setPseudoText();
+            Intent i = new Intent(
+                    Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+            startActivityForResult(i, IMAGE_FROM_GALLERY);
+        }
     }
+
+    private int getSourceType(){
+        Intent intent = getIntent();
+        String type = intent.getStringExtra("SourceType");
+
+        if(type.equals("Camera"))
+            return 1;
+        else if(type.equals("Gallery"))
+            return 2;
+        else
+            return -1;
+    }
+
     private void setPseudoText(){
         Intent intent = getIntent();
         pseudo = intent.getStringExtra("Pseudo");
         pseudotext= (TextView)findViewById(R.id.pseudo);
         pseudotext.setText("Pseudo: "+pseudo);
-
     }
 
     @Override
@@ -62,8 +84,8 @@ public class CameraActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     public void takePhoto() {
-        count++;
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
         intent.putExtra(MediaStore.EXTRA_OUTPUT,
@@ -71,6 +93,7 @@ public class CameraActivity extends ActionBarActivity {
         imageUri = Uri.fromFile(photo);
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -98,6 +121,27 @@ public class CameraActivity extends ActionBarActivity {
                     }
 
                 }
+                break;
+            case IMAGE_FROM_GALLERY:
+                if(resultCode == Activity.RESULT_OK){
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String filePath = cursor.getString(columnIndex);
+                    cursor.close();
+
+                    Bitmap yourSelectedImage = BitmapFactory.decodeFile(filePath);
+
+                    ImageView imageView = (ImageView) findViewById(R.id.imageView);
+
+                    imageView.setImageBitmap(yourSelectedImage);
+
+                }
+                break;
         }
     }
 }

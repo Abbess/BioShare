@@ -11,5 +11,9 @@
     <string name="addInterestPointButton">Ajouter point d\'interet  </string>
     <string name="title_activity_photo">PhotoActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="btnImport">Import</string>
+    <string name="btnCamera">Take Photo</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_import">ImportActivity</string>
 
 </resources>
