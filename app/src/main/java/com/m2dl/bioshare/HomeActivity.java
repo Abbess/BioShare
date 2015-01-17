@@ -36,7 +36,8 @@ public class HomeActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, CameraActivity.class);
-                intent.putExtra("Pseudo", intent.getStringExtra("Pseudo"));
+                //intent.putExtra("Pseudo", "testPseudo");
+                intent.putExtra("SourceType", "Camera");
                 startActivity(intent);
             }
         });
@@ -45,8 +46,9 @@ public class HomeActivity extends ActionBarActivity {
         btnImport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, ImportActivity.class);
-                intent.putExtra("Pseudo", intent.getStringExtra("Pseudo"));
+                Intent intent = new Intent(HomeActivity.this, CameraActivity.class);
+                //intent.putExtra("Pseudo", "testPseudo");
+                intent.putExtra("SourceType", "Gallery");
                 startActivity(intent);
             }
         });
