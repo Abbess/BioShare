@@ -23,7 +23,7 @@ public class CameraActivity extends ActionBarActivity {
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private String pseudo;
     private TextView pseudotext;
-    private int count=1;
+    private static int count=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +33,12 @@ public class CameraActivity extends ActionBarActivity {
         if(count==1)
             takePhoto();
     }
+
     private void setPseudoText(){
         Intent intent = getIntent();
         pseudo = intent.getStringExtra("Pseudo");
         pseudotext= (TextView)findViewById(R.id.pseudo);
         pseudotext.setText("Pseudo: "+pseudo);
-
     }
 
     @Override
@@ -62,6 +62,7 @@ public class CameraActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     public void takePhoto() {
         count++;
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
@@ -71,6 +72,7 @@ public class CameraActivity extends ActionBarActivity {
         imageUri = Uri.fromFile(photo);
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
