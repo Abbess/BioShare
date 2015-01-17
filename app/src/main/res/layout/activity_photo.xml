@@ -1,36 +1,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="100"
     tools:context="com.m2dl.bioshare.PhotoActivity">
 
-    <ImageView
-        android:layout_width="360dp"
-        android:layout_height="360dp"
-        android:id="@+id/imageViewPhoto"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:src="@drawable/plante" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="horizontal">
+
+
+    </LinearLayout>
 
     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
         android:orientation="horizontal"
+        android:layout_weight="60">
+
+        <ImageView
+            android:id="@+id/imageViewPhoto"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/plante" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        android:orientation="horizontal">
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="118dp"
+        android:layout_height="0dp"
         android:layout_gravity="center_vertical"
+        android:layout_weight="10"
+        android:orientation="horizontal"
         android:weightSum="100">
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/sendPhotoButton"
             android:id="@+id/sendPhotoButon"
-            android:layout_weight="50" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:text="@string/sendPhotoButton" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/addInterestPointButton"
             android:id="@+id/addInterestPointButton"
-            android:layout_weight="50" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:text="@string/addInterestPointButton" />
 
     </LinearLayout>
+
+
 </LinearLayout>
