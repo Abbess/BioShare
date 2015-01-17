@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -139,6 +141,15 @@ public class CameraActivity extends ActionBarActivity {
                     ImageView imageView = (ImageView) findViewById(R.id.imageView);
 
                     imageView.setImageBitmap(yourSelectedImage);
+
+                    imageView.setOnTouchListener(new View.OnTouchListener(){
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            Log.i("X",String.valueOf(event.getX())+"");
+                            Log.i("y",String.valueOf(event.getY())+"");
+                            return true;
+                        }
+                    });
 
                 }
                 break;

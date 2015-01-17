@@ -1,20 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+    android:weightSum="100">
+
+
+
+        <!-- Logo Start-->
+        <ImageView android:src="@drawable/logo"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:layout_marginLeft="10dip"/>
+        <!-- Logo Ends -->
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        ></LinearLayout>
     <Button
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        android:background="@drawable/gallery"
+        android:textColor="#FFFFFF"
         android:id="@+id/btnImportId"
-        android:layout_gravity="center"
-        android:text="@string/btnImport" />
-
+        android:drawablePadding="-15sp"
+        android:text="@string/btnImport"/>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        ></LinearLayout>
     <Button
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        android:background="@drawable/camera"
+        android:textColor="#FFFFFF"
         android:id="@+id/btnCameraId"
-        android:layout_gravity="center"
-        android:text="@string/btnCamera" />
-
+        android:paddingTop="32sp"
+        android:drawablePadding="-15sp"
+        android:text="@string/btnCamera"/>
 </LinearLayout>
