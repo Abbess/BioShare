@@ -1,11 +1,9 @@
-<<<<<<< HEAD
 .gradle
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
 /build
-=======
 #built application files
 *.apk
 *.ap_
@@ -38,4 +36,3 @@ Thumbs.db
 #.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
 .gradle
 build/
->>>>>>> e88cc18a99fe3d71087b532190b9cbd5eaffd418
