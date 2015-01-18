@@ -176,7 +176,7 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
     private void setPseudoText(){
         Intent intent = getIntent();
         pseudo = intent.getStringExtra("Pseudo");
-        pseudotext= (TextView)findViewById(R.id.pseudo);
+        //pseudotext= (TextView)findViewById(R.id.);
         pseudotext.setText("Pseudo: "+pseudo);
     }
 
