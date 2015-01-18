@@ -1,6 +1,7 @@
 package com.m2dl.bioshare;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -25,10 +26,21 @@ public class ListViewData extends ActionBarActivity {
     String[] values;
     ListView listview;
     TextView textViewInterest;
+    Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view_data);
+        button = (Button) findViewById(R.id.buttonValiderInterrest);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("pointInteret",textViewInterest.getText().toString());
+                setResult(RESULT_OK,returnIntent);
+                finish();
+            }
+        });
           listview = (ListView) findViewById(R.id.listview);
         textViewInterest = (TextView) findViewById(R.id.textViewInterest);
         textViewInterest.setMovementMethod(new ScrollingMovementMethod());
@@ -48,7 +60,7 @@ public class ListViewData extends ActionBarActivity {
                                     int position, long id) {
                  final String item = (String) parent.getItemAtPosition(position);
 
-                parent.animate().setDuration(2000).alpha(0)
+                parent.animate().setDuration(200).alpha(0)
                         .withEndAction(new Runnable() {
                             @Override
                             public void run() {
@@ -60,12 +72,7 @@ public class ListViewData extends ActionBarActivity {
             }
 
         });
-        Button button = (Button) findViewById(R.id.buttonValiderInterrest);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+
     }
 int count;
     public void modifyContent(String item){

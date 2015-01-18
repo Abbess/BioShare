@@ -42,6 +42,12 @@
         android:orientation="horizontal">
 
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=""
+            android:id="@+id/textViewInterestList" />
     </LinearLayout>
 
     <LinearLayout
@@ -51,23 +57,12 @@
         android:layout_weight="10"
         android:orientation="horizontal"
         android:weightSum="100">
-        <Button
-            android:id="@+id/addInterestPointButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:text="@string/addInterestPointButton"
-            android:paddingLeft="5dp"
-            android:drawableLeft="@drawable/addinterst"
-            android:background="@drawable/mybutton"
-            android:layout_gravity="center"
-            />
 
         <Button
             android:id="@+id/sendPhotoButon"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="50"
+            android:layout_weight="100"
             android:text="@string/sendPhotoButton"
             android:paddingLeft="5dp"
             android:drawableLeft="@drawable/gmail"

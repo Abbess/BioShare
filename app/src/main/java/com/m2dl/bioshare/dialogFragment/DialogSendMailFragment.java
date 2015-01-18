@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.m2dl.bioshare.PhotoActivity;
 import com.m2dl.bioshare.R;
 import com.m2dl.bioshare.mail.DataToSend;
 import com.m2dl.bioshare.mail.Mail;
@@ -31,6 +34,8 @@ public class DialogSendMailFragment extends DialogFragment {
     private Mail sender;
     private EditText mEditText;
     private DataToSend dataToSend;
+
+
 
 
     public DialogSendMailFragment() {
@@ -69,14 +74,22 @@ public class DialogSendMailFragment extends DialogFragment {
                                             "\n\n Commentaire : " + dataToSend.getComment()+
                                             "\n\n Latitude : "+dataToSend.getLatitude()+
                                             "\n\n Longitude : "+dataToSend.getLatitude()+
+                                            "\n\n Points D'intérêt : "+dataToSend.getPointInteret()+
+                                            "\n\n Envoyer Par : "+dataToSend.getPseudo()+
                                             "\n\n Cordialement,"+
-                                            "\n\n Elmahdi, Mohamed, Oussama & charlie";
+                                            "\n\n Depuis l\'application Android BioShare,"+
+                                            "\n Réaliser par Elmahdi, Mohamed & Oussama"+
+                                            "\n M2DL,";
 
 
                                     sender.sendMailTo(addrMailChoisi, "Projet Biodiversité [UE TER]", bodyOfMail);
+
+
                                 }
                             };
                             t.start();
+
+
                         }
                     }
                 })

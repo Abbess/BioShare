@@ -1,11 +1,9 @@
 package com.m2dl.bioshare.mail;
 
-import android.content.Context;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.MediaStore;
+
 import android.util.Log;
+
+
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -115,9 +113,11 @@ public class Mail {
                     try {
                         Transport.send(Mail.this.message, Mail.this.message.getRecipients(Message.RecipientType.TO));
 
-                        Log.e("send", "SEND");
+
                     } catch (MessagingException e) {
                         e.printStackTrace();
+
+
                     }
                 }
             };

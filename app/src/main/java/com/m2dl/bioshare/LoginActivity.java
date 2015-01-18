@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.m2dl.bioshare.globalPseudo.GlobalClass;
+
 
 public class LoginActivity extends ActionBarActivity implements View.OnClickListener {
     private EditText username = null;
@@ -50,8 +52,19 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra("Pseudo", username.getText().toString());
-        startActivity(intent);
+        if(!username.getText().toString().trim().isEmpty()) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            intent.putExtra("Pseudo", username.getText().toString());
+            // Calling Application class (see application tag in AndroidManifest.xml)
+            final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+
+            //Set name and email in global/application context
+            globalVariable.setPseudo(username.getText().toString());
+
+            startActivity(intent);
+        }else{
+            Toast.makeText(getBaseContext(), "Entrez votre Pseudo", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
