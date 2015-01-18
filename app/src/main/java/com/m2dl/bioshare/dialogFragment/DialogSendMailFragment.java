@@ -52,10 +52,10 @@ public class DialogSendMailFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         addrMailChoisi = mEditText.getText().toString();
 
-                        if(!addrMailChoisi.isEmpty()) {
-                           // mListener.onDialogPositiveClick(DialogSendMailFragment.this);
+                        if (!addrMailChoisi.isEmpty()) {
+                            // mListener.onDialogPositiveClick(DialogSendMailFragment.this);
 
-                            Thread t = new Thread(){
+                            Thread t = new Thread() {
                                 @Override
                                 public void run() {
                                     sender = new Mail();

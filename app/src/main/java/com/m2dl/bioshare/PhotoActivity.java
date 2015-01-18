@@ -35,7 +35,7 @@ import com.m2dl.bioshare.mail.MailAsyncTask;
 import java.io.File;
 
 
-public class PhotoActivity extends ActionBarActivity implements LocationListener{
+public class PhotoActivity extends ActionBarActivity implements LocationListener {
 
     private Uri imageUri;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
@@ -48,26 +48,26 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
 
     private LocationManager locationManager;
     private DialogSendMailFragment dialogSendMailFragment;
-    private final static int IDENTIFIANT_BOITE_ENVOI_MAIL  = 1;
+    private final static int IDENTIFIANT_BOITE_ENVOI_MAIL = 1;
 
     @Override
     public void onLocationChanged(Location location) {
-        String str = "Latitude: "+location.getLatitude()+" \nLongitude: "+location.getLongitude();
+        String str = "Latitude: " + location.getLatitude() + " \nLongitude: " + location.getLongitude();
         Toast.makeText(getBaseContext(), str, Toast.LENGTH_LONG).show();
-        Log.e("dd",str);
+        Log.e("dd", str);
 
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        Log.e("dd","lat"+" long");
+        Log.e("dd", "lat" + " long");
     }
 
     @Override
     public void onProviderEnabled(String provider) {
 
         Toast.makeText(getBaseContext(), "Gps turned on ", Toast.LENGTH_LONG).show();
-        Log.e("dd","gps");
+        Log.e("dd", "gps");
     }
 
     @Override
@@ -81,10 +81,10 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
 
-        if(getSourceType()==1){
+        if (getSourceType() == 1) {
             //setPseudoText();
             takePhoto();
-        }else{
+        } else {
             //setPseudoText();
             Intent i = new Intent(
                     Intent.ACTION_PICK,
@@ -93,7 +93,7 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
             startActivityForResult(i, IMAGE_FROM_GALLERY);
         }
 
-        addInterestPointButton=(Button)findViewById(R.id.addInterestPointButton);
+        addInterestPointButton = (Button) findViewById(R.id.addInterestPointButton);
         addInterestPointButton.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
@@ -102,53 +102,20 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
                 }
         );
 
-        sendPhotoButton=(Button)findViewById(R.id.sendPhotoButon);
+        sendPhotoButton = (Button) findViewById(R.id.sendPhotoButon);
         sendPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 showDialogSendMail();
-                //showDialog(IDENTIFIANT_BOITE_ENVOI_MAIL);
-
-                /*Thread t = new Thread(){
-                    @Override
-                    public void run() {
-                        sender = new Mail();
-                        sender.sendMailTo("oussama.laklalech@gmail.com", "Subject Test", "Body TEST !! ");
-                    }
-                };
-                t.start();*/
-
             }
-           /* public void onClick(View v) {
-
-
-                    Thread t = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Mail sender = new Mail("biodiversityshare@gmail.com", "masterdl01");
-                            try {
-                                sender.sendMail("This is Subject",
-                                        "This is Body",
-                                        "biodiversityshare@gmail.com",
-                                        "mohammedabbes@gmail.com");
-                            } catch (Exception e) {
-                                Log.e("SendMail", e.getMessage(), e);
-                            }
-                            Log.e("SendMail","test");
-                        }
-                    });
-                    t.start();
-
-            }*/
         });
-
 
 
         /********** get Gps location service LocationManager object ***********/
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		/*
-		  Parameters :
+          Parameters :
 		     First(provider)    :  the name of the provider with which to register
 		     Second(minTime)    :  the minimum time interval for notifications, in milliseconds. This field is only used as a hint to conserve power, and actual time between location updates may be greater or lesser than this value.
 		     Third(minDistance) :  the minimum distance interval for notifications, in meters
@@ -161,33 +128,35 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
 
     }
 
-    private int getSourceType(){
+    private int getSourceType() {
         Intent intent = getIntent();
         String type = intent.getStringExtra("SourceType");
 
-        if(type.equals("Camera"))
+        if (type.equals("Camera"))
             return 1;
-        else if(type.equals("Gallery"))
+        else if (type.equals("Gallery"))
             return 2;
         else
             return -1;
     }
 
-    private void setPseudoText(){
-        Intent intent = getIntent();
-        pseudo = intent.getStringExtra("Pseudo");
-        pseudotext= (TextView)findViewById(R.id.pseudo);
-        pseudotext.setText("Pseudo: "+pseudo);
-    }
-
+    /*
+        private void setPseudoText(){
+            Intent intent = getIntent();
+            pseudo = intent.getStringExtra("Pseudo");
+            pseudotext= (TextView)findViewById(R.id.pseudo);
+            pseudotext.setText("Pseudo: "+pseudo);
+        }
+    */
     public void takePhoto() {
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
+        File photo = new File(Environment.getExternalStorageDirectory(), "Pic.jpg");
         intent.putExtra(MediaStore.EXTRA_OUTPUT,
                 Uri.fromFile(photo));
         imageUri = Uri.fromFile(photo);
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -210,18 +179,17 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
         return super.onOptionsItemSelected(item);
     }
 
-    public void getLocation(){
+    public void getLocation() {
 
 
-        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if(location!= null){
-        double longitude = location.getLongitude();
-        double latitude = location.getLatitude();
-        Log.e("dd","lat"+longitude+" long"+latitude);
-    }
-    else
-            Log.e("nukk","nulll");
+        if (location != null) {
+            double longitude = location.getLongitude();
+            double latitude = location.getLatitude();
+            Log.e("dd", "lat" + longitude + " long" + latitude);
+        } else
+            Log.e("nukk", "nulll");
     }
 
 
@@ -236,7 +204,7 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
                     getContentResolver().notifyChange(selectedImage, null);
                     ImageView imageView = (ImageView) findViewById(R.id.imageViewPhoto);
                     ContentResolver cr = getContentResolver();
-                    Bitmap bitmap=null;
+                    Bitmap bitmap = null;
                     try {
                         bitmap = android.provider.MediaStore.Images.Media
                                 .getBitmap(cr, selectedImage);
@@ -253,7 +221,7 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
                 }
                 break;
             case IMAGE_FROM_GALLERY:
-                if(resultCode == Activity.RESULT_OK){
+                if (resultCode == Activity.RESULT_OK) {
                     Uri selectedImage = data.getData();
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
@@ -270,11 +238,11 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
 
                     imageView.setImageBitmap(yourSelectedImage);
 
-                    imageView.setOnTouchListener(new View.OnTouchListener(){
+                    imageView.setOnTouchListener(new View.OnTouchListener() {
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
-                            Log.i("X",String.valueOf(event.getX())+"");
-                            Log.i("y",String.valueOf(event.getY())+"");
+                            Log.i("X", String.valueOf(event.getX()) + "");
+                            Log.i("y", String.valueOf(event.getY()) + "");
                             return true;
                         }
                     });
