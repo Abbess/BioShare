@@ -27,7 +27,7 @@ public class MailAsyncTask  extends AsyncTask<Void, Void, Void> {
         @Override
         public Void doInBackground(Void... arg0) {
 
-
+/*
             try {
                 Mail sender = new Mail("biodiversityshare@gmail.com", "masterdl01");
                 sender.sendMail("This is Subject",
@@ -42,7 +42,7 @@ public class MailAsyncTask  extends AsyncTask<Void, Void, Void> {
             }
 
 
-
+*/
             return null;
         }
 

@@ -32,16 +32,19 @@ import java.io.File;
 
 
 public class PhotoActivity extends ActionBarActivity implements LocationListener{
+
     private Uri imageUri;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private static final int IMAGE_FROM_GALLERY = 1024;
     private String pseudo;
     private TextView pseudotext;
+    private Mail sender = null;
 
     private Button addInterestPointButton;
     private Button sendPhotoButton;
 
     private LocationManager locationManager;
+
     @Override
     public void onLocationChanged(Location location) {
         String str = "Latitude: "+location.getLatitude()+" \nLongitude: "+location.getLongitude();
@@ -66,6 +69,7 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
     public void onProviderDisabled(String provider) {
         Toast.makeText(getBaseContext(), "Gps turned off ", Toast.LENGTH_LONG).show();
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,10 +96,24 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
                     }
                 }
         );
+
         sendPhotoButton=(Button)findViewById(R.id.sendPhotoButon);
         sendPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v){
+
+
+                Thread t = new Thread(){
+                    @Override
+                    public void run() {
+                        sender = new Mail("biodiversityshare", "masterdl01");
+                        sender.sendMail();
+                    }
+                };
+                t.start();
+
+            }
+           /* public void onClick(View v) {
 
 
                     Thread t = new Thread(new Runnable() {
@@ -115,10 +133,7 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
                     });
                     t.start();
 
-
-
-
-            }
+            }*/
         });
 
 
