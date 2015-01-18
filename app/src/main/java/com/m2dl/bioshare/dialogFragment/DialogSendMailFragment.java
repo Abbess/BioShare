@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.m2dl.bioshare.R;
+import com.m2dl.bioshare.mail.DataToSend;
 import com.m2dl.bioshare.mail.Mail;
 
 /**
@@ -27,14 +28,17 @@ import com.m2dl.bioshare.mail.Mail;
 public class DialogSendMailFragment extends DialogFragment {
 
     private String addrMailChoisi;
-
     private Mail sender;
-
     private EditText mEditText;
+    private DataToSend dataToSend;
 
 
     public DialogSendMailFragment() {
         // Empty constructor required for DialogFragment
+    }
+
+    public void setData(DataToSend data){
+        this.dataToSend = data;
     }
 
     @Override
@@ -58,8 +62,18 @@ public class DialogSendMailFragment extends DialogFragment {
                             Thread t = new Thread() {
                                 @Override
                                 public void run() {
-                                    sender = new Mail();
-                                    sender.sendMailTo(addrMailChoisi, "Subject Test", "Body TEST !! ");
+                                    sender = new Mail(dataToSend.getFileName());
+                                    String bodyOfMail;
+                                    bodyOfMail = "Bonjour,"+
+                                            "\n\n Veuillez trouver ci-dessous les informations relatives à la photo : "+
+                                            "\n\n Commentaire : " + dataToSend.getComment()+
+                                            "\n\n Latitude : "+dataToSend.getLatitude()+
+                                            "\n\n Longitude : "+dataToSend.getLatitude()+
+                                            "\n\n Cordialement,"+
+                                            "\n\n Elmahdi, Mohamed, Oussama & charlie";
+
+
+                                    sender.sendMailTo(addrMailChoisi, "Projet Biodiversité [UE TER]", bodyOfMail);
                                 }
                             };
                             t.start();

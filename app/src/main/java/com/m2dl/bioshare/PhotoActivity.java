@@ -24,11 +24,13 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.m2dl.bioshare.dialogFragment.DialogSendMailFragment;
+import com.m2dl.bioshare.mail.DataToSend;
 import com.m2dl.bioshare.mail.Mail;
 import com.m2dl.bioshare.mail.MailAsyncTask;
 
@@ -42,20 +44,21 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
     private static final int IMAGE_FROM_GALLERY = 1024;
     private String pseudo;
     private TextView pseudotext;
+    private Location location;
 
     private Button addInterestPointButton;
     private Button sendPhotoButton;
 
     private LocationManager locationManager;
     private DialogSendMailFragment dialogSendMailFragment;
-    private final static int IDENTIFIANT_BOITE_ENVOI_MAIL  = 1;
+    private DataToSend data = new DataToSend();
 
     @Override
     public void onLocationChanged(Location location) {
+        this.location = location;
         String str = "Latitude: "+location.getLatitude()+" \nLongitude: "+location.getLongitude();
         Toast.makeText(getBaseContext(), str, Toast.LENGTH_LONG).show();
         Log.e("dd",str);
-
     }
 
     @Override
@@ -106,40 +109,9 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
         sendPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
+                initDataForMail();
                 showDialogSendMail();
-                //showDialog(IDENTIFIANT_BOITE_ENVOI_MAIL);
-
-                /*Thread t = new Thread(){
-                    @Override
-                    public void run() {
-                        sender = new Mail();
-                        sender.sendMailTo("oussama.laklalech@gmail.com", "Subject Test", "Body TEST !! ");
-                    }
-                };
-                t.start();*/
-
             }
-           /* public void onClick(View v) {
-
-
-                    Thread t = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Mail sender = new Mail("biodiversityshare@gmail.com", "masterdl01");
-                            try {
-                                sender.sendMail("This is Subject",
-                                        "This is Body",
-                                        "biodiversityshare@gmail.com",
-                                        "mohammedabbes@gmail.com");
-                            } catch (Exception e) {
-                                Log.e("SendMail", e.getMessage(), e);
-                            }
-                            Log.e("SendMail","test");
-                        }
-                    });
-                    t.start();
-
-            }*/
         });
 
 
@@ -159,6 +131,16 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
                 3000,   // 3 sec
                 10, this);
 
+    }
+
+    private void initDataForMail() {
+        EditText commentEditText = (EditText) findViewById(R.id.commentEditText);
+        Log.e("comment : ",commentEditText.getText().toString() );
+        Log.e("latitude : ", PhotoActivity.this.location.getLatitude()+"");
+        Log.e("latitude : ", PhotoActivity.this.location.getLongitude()+"");
+        data.setComment( commentEditText.getText().toString() );
+        data.setLatitude(PhotoActivity.this.location.getLatitude());
+        data.setLongitude(PhotoActivity.this.location.getLongitude());
     }
 
     private int getSourceType(){
@@ -189,6 +171,7 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
         imageUri = Uri.fromFile(photo);
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -212,8 +195,6 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
     }
 
     public void getLocation(){
-
-
         LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if(location!= null){
@@ -234,6 +215,9 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
             case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
                 if (resultCode == Activity.RESULT_OK) {
                     Uri selectedImage = imageUri;
+
+                    PhotoActivity.this.data.setFileName(getRealPathFromURI(imageUri));
+
                     getContentResolver().notifyChange(selectedImage, null);
                     ImageView imageView = (ImageView) findViewById(R.id.imageViewPhoto);
                     ContentResolver cr = getContentResolver();
@@ -263,6 +247,7 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
 
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     String filePath = cursor.getString(columnIndex);
+                    PhotoActivity.this.data.setFileName( filePath );
                     cursor.close();
 
                     Bitmap yourSelectedImage = BitmapFactory.decodeFile(filePath);
@@ -285,10 +270,26 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
         }
     }
 
-
     public void showDialogSendMail() {
         // Create an instance of the dialog fragment and show it
         dialogSendMailFragment = new DialogSendMailFragment();
-        dialogSendMailFragment.show(getFragmentManager(), "LoginDialog");
+        dialogSendMailFragment.setData(data);
+        dialogSendMailFragment.show(getFragmentManager(), "sendMailDialog");
+    }
+
+    public String getRealPathFromURI(Uri contentUri)
+    {
+        try
+        {
+            String[] proj = {MediaStore.Images.Media.DATA};
+            Cursor cursor = managedQuery(contentUri, proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        }
+        catch (Exception e)
+        {
+            return contentUri.getPath();
+        }
     }
 }

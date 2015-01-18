@@ -1,16 +1,26 @@
 package com.m2dl.bioshare.mail;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -26,9 +36,9 @@ public class Mail {
     private String compte;
     private String password;
     private Message message;
-
-    public Mail() {
-
+    private String fileName = "";
+    public Mail(String file) {
+        fileName = file;
         init();
 
         // infos pour l'authentification
@@ -77,7 +87,26 @@ public class Mail {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(mailDestinataire));
             message.setSubject(subject);
-            message.setText(body);
+           // message.setText(body);
+
+            BodyPart messageBodyPart = new MimeBodyPart();
+
+            messageBodyPart.setText(body);
+
+            // Create a multipart message
+            Multipart multipart = new MimeMultipart();
+
+            // Set text message part
+            multipart.addBodyPart(messageBodyPart);
+
+            messageBodyPart = new MimeBodyPart();
+            DataSource source = new FileDataSource(this.fileName);
+            messageBodyPart.setDataHandler(new DataHandler(source));
+            messageBodyPart.setFileName(this.fileName);
+            //messageBodyPart.setContent(new Bitmap(), "" );
+            multipart.addBodyPart(messageBodyPart);
+
+            message.setContent(multipart);
 
             Log.e("msg", "avantSend");
             Thread t = new Thread() {
