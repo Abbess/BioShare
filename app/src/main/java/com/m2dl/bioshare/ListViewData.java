@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.m2dl.bioshare.parser.Parser;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,14 +25,16 @@ import java.util.List;
 public class ListViewData extends ActionBarActivity {
     String listInterest="";
     int profondeur;
-    String[] values;
     ListView listview;
     TextView textViewInterest;
     Button button;
+    private Parser parser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view_data);
+        parser=new Parser(this.getResources().openRawResource(R.raw.list));
+
         button = (Button) findViewById(R.id.buttonValiderInterrest);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,11 +48,7 @@ public class ListViewData extends ActionBarActivity {
           listview = (ListView) findViewById(R.id.listview);
         textViewInterest = (TextView) findViewById(R.id.textViewInterest);
         textViewInterest.setMovementMethod(new ScrollingMovementMethod());
-        values = getFirstNode();
-        final ArrayList<String> list = new ArrayList<>();
-        for (int i = 0; i < values.length; ++i) {
-            list.add(values[i]);
-        }
+        final ArrayList<String> list = parser.getInitialElements();
         final StableArrayAdapter adapter = new StableArrayAdapter(this,
                 android.R.layout.simple_list_item_1, list);
         listview.setAdapter(adapter);
@@ -95,12 +95,8 @@ int count;
         }
 
 
-        //item xml.getSounodeItem---if ItemHasSousnode
-        String value[]={"zeb"+count++,"9lwa"+count++};
-        final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < value.length; ++i) {
-            list.add(value[i]);
-        }
+
+        final ArrayList<String> list = parser.getElementsByParentName(item);
         final StableArrayAdapter adapter = new StableArrayAdapter(ListViewData.this,
                 android.R.layout.simple_list_item_1, list);
         ListViewData.this.listview.setAdapter(adapter);

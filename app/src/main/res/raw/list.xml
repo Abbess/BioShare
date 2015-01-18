@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<elements>
+    <element>
+        <name>Plante</name>
+        <element>
+            <name>Grande</name>
+            <element>
+                <name>+50</name>
+            </element>
+            <element>
+                <name>-50</name>
+            </element>
+        </element>
+        <element>
+            <name>Petite</name>
+        </element>
+    </element>
+    <element>
+        <name>Animal</name>
+        <element>
+            <name>Vertébré</name>
+        </element>
+        <element>
+            <name>Invertébré</name>
+        </element>
+    </element>
+    <element>
+        <name>Objet</name>
+        <element>
+            <name>solide</name>
+        </element>
+        <element>
+            <name>non-solide</name>
+        </element>
+    </element>
+</elements>
