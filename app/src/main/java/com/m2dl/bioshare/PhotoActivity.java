@@ -1,6 +1,7 @@
 package com.m2dl.bioshare;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,8 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.m2dl.bioshare.dialogFragment.DialogSendMailFragment;
 import com.m2dl.bioshare.mail.Mail;
 import com.m2dl.bioshare.mail.MailAsyncTask;
 
@@ -38,12 +42,13 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
     private static final int IMAGE_FROM_GALLERY = 1024;
     private String pseudo;
     private TextView pseudotext;
-    private Mail sender = null;
 
     private Button addInterestPointButton;
     private Button sendPhotoButton;
 
     private LocationManager locationManager;
+    private DialogSendMailFragment dialogSendMailFragment;
+    private final static int IDENTIFIANT_BOITE_ENVOI_MAIL  = 1;
 
     @Override
     public void onLocationChanged(Location location) {
@@ -101,16 +106,17 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
         sendPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
+                showDialogSendMail();
+                //showDialog(IDENTIFIANT_BOITE_ENVOI_MAIL);
 
-
-                Thread t = new Thread(){
+                /*Thread t = new Thread(){
                     @Override
                     public void run() {
-                        sender = new Mail("biodiversityshare", "masterdl01");
-                        sender.sendMail();
+                        sender = new Mail();
+                        sender.sendMailTo("oussama.laklalech@gmail.com", "Subject Test", "Body TEST !! ");
                     }
                 };
-                t.start();
+                t.start();*/
 
             }
            /* public void onClick(View v) {
@@ -138,7 +144,6 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
 
 
 
-
         /********** get Gps location service LocationManager object ***********/
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -155,7 +160,6 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
                 10, this);
 
     }
-
 
     private int getSourceType(){
         Intent intent = getIntent();
@@ -246,7 +250,6 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
                                 .show();
                         Log.e("Camera", e.toString());
                     }
-
                 }
                 break;
             case IMAGE_FROM_GALLERY:
@@ -281,4 +284,10 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
         }
     }
 
+
+    public void showDialogSendMail() {
+        // Create an instance of the dialog fragment and show it
+        dialogSendMailFragment = new DialogSendMailFragment();
+        dialogSendMailFragment.show(getFragmentManager(), "LoginDialog");
+    }
 }

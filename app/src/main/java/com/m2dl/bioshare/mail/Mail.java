@@ -25,12 +25,13 @@ public class Mail{
     private String password;
     private Message message;
 
-    public Mail(String user, String password){
+    public Mail(){
 
         init();
 
-        this.compte = user;
-        this.password = password;
+        // infos pour l'authentification
+        this.compte = "biodiversityshare";
+        this.password = "masterdl01";
 
         authentification();
     }
@@ -57,7 +58,7 @@ public class Mail{
         this.props.put("mail.smtp.port", "25");// ou 465
     }
 
-    public void sendMail(){
+    public void sendMailTo(String mailDestinataire, String subject, String body){
         try {
 
             Log.e("init","init");
@@ -70,11 +71,11 @@ public class Mail{
 
             message = new MimeMessage(this.session);
 
-            message.setFrom(new InternetAddress("zabour2@maghrebUnited.com"));
+            message.setFrom(new InternetAddress("biodiversityshare@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("biodiversityshare@gmail.com"));
-            message.setSubject("[msg du tel] Maghreb United ;) ");
-            message.setText("TEST 2 !!");
+                    InternetAddress.parse(mailDestinataire));
+            message.setSubject(subject);
+            message.setText(body);
 
             Log.e("msg","avantSend");
             Thread t = new Thread(){

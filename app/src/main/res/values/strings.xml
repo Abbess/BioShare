@@ -15,5 +15,8 @@
     <string name="btnCamera">Take Photo</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_import">ImportActivity</string>
+    <string name="confirm_envoi_fragment">Envoyer</string>
+    <string name="cancel_name">Annuler</string>
+    <string name="address_mail">Adresse mail</string>
 
 </resources>
