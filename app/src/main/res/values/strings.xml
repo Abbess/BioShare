@@ -11,12 +11,12 @@
     <string name="addInterestPointButton">Ajouter point d\'interet  </string>
     <string name="title_activity_photo">PhotoActivity</string>
     <string name="hello_world">Hello world!</string>
-    <string name="btnImport">Import</string>
-    <string name="btnCamera">Take Photo</string>
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="btnImport">importer depuis la galerie</string>
+    <string name="btnCamera">Prendre une photo</string>
+    <string name="title_activity_home">Acceuil</string>
     <string name="title_activity_import">ImportActivity</string>
     <string name="confirm_envoi_fragment">Envoyer</string>
     <string name="cancel_name">Annuler</string>
     <string name="address_mail">Adresse mail</string>
-
+    
 </resources>
