@@ -19,5 +19,7 @@
     <string name="cancel_name">Annuler</string>
     <string name="address_mail">Adresse mail</string>
     <string name="hintComment">Tapez un commentaire</string>
-    
+    <string name="title_activity_list_view_data">ListViewData</string>
+    <string name="buttonValider">Valider</string>
+
 </resources>

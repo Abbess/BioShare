@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.m2dl.bioshare.ListViewData"
+     android:weightSum="100"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="70"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
+        android:scrollbars = "vertical"
+        android:id="@+id/textViewInterest"
+       android:layout_marginBottom="10dp" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="0dp"
+        android:text="@string/buttonValider"
+        android:id="@+id/buttonValiderInterrest"
+        android:layout_weight="10"
+        android:paddingLeft="5dp"
+        android:drawableLeft="@drawable/checkmark8"
+        android:background="@drawable/mybutton"
+        android:layout_gravity="center"
+         />
+
+</LinearLayout>
