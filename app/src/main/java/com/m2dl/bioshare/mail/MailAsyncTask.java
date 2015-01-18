@@ -6,26 +6,25 @@ import android.util.Log;
 /**
  * Created by mehdi on 17/01/2015.
  */
-public class MailAsyncTask  extends AsyncTask<Void, Void, Void> {
+public class MailAsyncTask extends AsyncTask<Void, Void, Void> {
 
 
+    public MailAsyncTask() {
 
-   public MailAsyncTask()    {
+    }
 
-        }
+    // Executed on the UI thread before the
+    // time taking task begins
+    @Override
+    public void onPreExecute() {
+        super.onPreExecute();
 
-        // Executed on the UI thread before the
-        // time taking task begins
-        @Override
-        public void onPreExecute() {
-            super.onPreExecute();
+    }
 
-        }
-
-        // Executed on a special thread and all your
-        // time taking tasks should be inside this method
-        @Override
-        public Void doInBackground(Void... arg0) {
+    // Executed on a special thread and all your
+    // time taking tasks should be inside this method
+    @Override
+    public Void doInBackground(Void... arg0) {
 
 /*
             try {
@@ -43,15 +42,15 @@ public class MailAsyncTask  extends AsyncTask<Void, Void, Void> {
 
 
 */
-            return null;
-        }
-
-        // Executed on the UI thread after the
-        // time taking process is completed
-        @Override
-        public void onPostExecute(Void result) {
-            super.onPostExecute(result);
-
-        }
+        return null;
     }
+
+    // Executed on the UI thread after the
+    // time taking process is completed
+    @Override
+    public void onPostExecute(Void result) {
+        super.onPostExecute(result);
+
+    }
+}
 

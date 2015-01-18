@@ -173,13 +173,14 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
             return -1;
     }
 
-    private void setPseudoText(){
-        Intent intent = getIntent();
-        pseudo = intent.getStringExtra("Pseudo");
-        //pseudotext= (TextView)findViewById(R.id.);
-        pseudotext.setText("Pseudo: "+pseudo);
-    }
-
+    /*
+        private void setPseudoText(){
+            Intent intent = getIntent();
+            pseudo = intent.getStringExtra("Pseudo");
+            pseudotext= (TextView)findViewById(R.id.pseudo);
+            pseudotext.setText("Pseudo: "+pseudo);
+        }
+    */
     public void takePhoto() {
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");

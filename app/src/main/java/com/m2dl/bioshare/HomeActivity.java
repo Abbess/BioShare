@@ -20,16 +20,17 @@ public class HomeActivity extends ActionBarActivity {
 
     private Button btnImport;
     private Button btnCamera;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
         //On récupère le boutton qui permet de lancer la camera
-        btnCamera = (Button)findViewById(R.id.btnCameraId);
+        btnCamera = (Button) findViewById(R.id.btnCameraId);
 
         //On récupère le boutton qui permet d'importer une photo de l'album
-        btnImport = (Button)findViewById(R.id.btnImportId);
+        btnImport = (Button) findViewById(R.id.btnImportId);
 
         // Listener OnClick ==> btnCamera
         btnCamera.setOnClickListener(new View.OnClickListener() {

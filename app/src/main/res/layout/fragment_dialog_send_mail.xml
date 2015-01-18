@@ -7,19 +7,19 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/mailAddress"
-        android:layout_gravity="center" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/address_mail"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal|top" />
+
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:id="@+id/mailAddress"
+            android:layout_gravity="center"
+            android:hint="@string/address_mail"/>
+    </LinearLayout>
 </FrameLayout>

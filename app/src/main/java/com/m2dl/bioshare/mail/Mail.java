@@ -1,4 +1,5 @@
 package com.m2dl.bioshare.mail;
+
 import android.util.Log;
 
 import javax.activation.DataHandler;
@@ -10,6 +11,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +19,7 @@ import java.io.OutputStream;
 import java.security.Security;
 import java.util.Properties;
 
-public class Mail{
+public class Mail {
 
     private Properties props = null;
     private Session session = null;
@@ -25,7 +27,7 @@ public class Mail{
     private String password;
     private Message message;
 
-    public Mail(){
+    public Mail() {
 
         init();
 
@@ -36,19 +38,19 @@ public class Mail{
         authentification();
     }
 
-    public void authentification(){
+    public void authentification() {
 
         this.session = Session.getDefaultInstance(props,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        Log.e("user",Mail.this.compte);
-                        Log.e("pass",Mail.this.password);
+                        Log.e("user", Mail.this.compte);
+                        Log.e("pass", Mail.this.password);
                         return new PasswordAuthentication(Mail.this.compte.toString().trim(), Mail.this.password.toString().trim());
                     }
                 });
     }
 
-    public void init(){
+    public void init() {
         this.props = new Properties();
 
         this.props.put("mail.smtp.host", "smtp.gmail.com");
@@ -58,10 +60,10 @@ public class Mail{
         this.props.put("mail.smtp.port", "25");// ou 465
     }
 
-    public void sendMailTo(String mailDestinataire, String subject, String body){
+    public void sendMailTo(String mailDestinataire, String subject, String body) {
         try {
 
-            Log.e("init","init");
+            Log.e("init", "init");
             this.session = Session.getDefaultInstance(props,
                     new javax.mail.Authenticator() {
                         protected PasswordAuthentication getPasswordAuthentication() {
@@ -77,14 +79,14 @@ public class Mail{
             message.setSubject(subject);
             message.setText(body);
 
-            Log.e("msg","avantSend");
-            Thread t = new Thread(){
+            Log.e("msg", "avantSend");
+            Thread t = new Thread() {
                 @Override
                 public void run() {
                     try {
                         Transport.send(Mail.this.message, Mail.this.message.getRecipients(Message.RecipientType.TO));
 
-                        Log.e("send","SEND");
+                        Log.e("send", "SEND");
                     } catch (MessagingException e) {
                         e.printStackTrace();
                     }
@@ -99,7 +101,7 @@ public class Mail{
 
 
     // NON UTILISE ( laissée en cas de besoin )
-    public void doAll(){
+    public void doAll() {
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
@@ -111,7 +113,7 @@ public class Mail{
         Session session = Session.getDefaultInstance(props,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("biodiversityshare","masterdl01");
+                        return new PasswordAuthentication("biodiversityshare", "masterdl01");
                     }
                 });
 

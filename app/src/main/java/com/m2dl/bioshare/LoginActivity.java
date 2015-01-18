@@ -12,15 +12,15 @@ import android.widget.Toast;
 
 
 public class LoginActivity extends ActionBarActivity implements View.OnClickListener {
-    private EditText  username=null;
+    private EditText username = null;
     private Button login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        username = (EditText)findViewById(R.id.usernametext);
-        login = (Button)findViewById(R.id.loginbutton);
+        username = (EditText) findViewById(R.id.usernametext);
+        login = (Button) findViewById(R.id.loginbutton);
         login.setOnClickListener(this);
 
     }
