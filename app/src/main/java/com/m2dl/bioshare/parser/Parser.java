@@ -1,9 +1,6 @@
 package com.m2dl.bioshare.parser;
 
-import android.util.Log;
-
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 

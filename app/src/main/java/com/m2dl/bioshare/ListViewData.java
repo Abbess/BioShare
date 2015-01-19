@@ -14,20 +14,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.m2dl.bioshare.parser.Parser;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
 public class ListViewData extends ActionBarActivity {
-    String listInterest="";
-    int profondeur;
-    ListView listview;
-    TextView textViewInterest;
-    Button button;
+    private String listInterest="";
+    private int profondeur;
+    private ListView listview;
+    private TextView textViewInterest;
+    private Button button;
     private Parser parser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,18 +72,14 @@ public class ListViewData extends ActionBarActivity {
         });
 
     }
-int count;
     public void modifyContent(String item){
-
         profondeur++;
         Log.e("Item",item);
         if(profondeur==1){
             textViewInterest.setText(item);
             listInterest=item;
-
         }
         else {
-
             listInterest = listInterest + "\n";
             for(int i=0;i<profondeur;i++) {
                 listInterest+="\t\t";
@@ -100,12 +94,6 @@ int count;
         final StableArrayAdapter adapter = new StableArrayAdapter(ListViewData.this,
                 android.R.layout.simple_list_item_1, list);
         ListViewData.this.listview.setAdapter(adapter);
-    }
-
-    public String[] getFirstNode() {
-//xml getfirstnode
-        return new String[]{"Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS"};
     }
 
     private class StableArrayAdapter extends ArrayAdapter<String> {

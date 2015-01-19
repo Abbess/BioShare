@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.m2dl.bioshare.globalPseudo.GlobalClass;
+import com.m2dl.bioshare.persistance.GlobalClass;
 
 
 public class LoginActivity extends ActionBarActivity implements View.OnClickListener {

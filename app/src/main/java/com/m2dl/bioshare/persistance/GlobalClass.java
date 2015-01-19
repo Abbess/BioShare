@@ -1,4 +1,4 @@
-package com.m2dl.bioshare.globalPseudo;
+package com.m2dl.bioshare.persistance;
 
 import android.app.Application;
 

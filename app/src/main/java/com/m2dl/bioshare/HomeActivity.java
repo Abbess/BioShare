@@ -1,20 +1,12 @@
 package com.m2dl.bioshare;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.net.Uri;
-import android.widget.ImageView;
-
 
 public class HomeActivity extends ActionBarActivity {
 
@@ -25,38 +17,29 @@ public class HomeActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         //On récupère le boutton qui permet de lancer la camera
         btnCamera = (Button) findViewById(R.id.btnCameraId);
-
         //On récupère le boutton qui permet d'importer une photo de l'album
         btnImport = (Button) findViewById(R.id.btnImportId);
-
         // Listener OnClick ==> btnCamera
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, PhotoActivity.class);
-                //intent.putExtra("Pseudo", "testPseudo");
                 intent.putExtra("SourceType", "Camera");
                 startActivity(intent);
             }
         });
-
         // Listener OnClick ==> btnImport
         btnImport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, PhotoActivity.class);
-                //intent.putExtra("Pseudo", "testPseudo");
                 intent.putExtra("SourceType", "Gallery");
                 startActivity(intent);
             }
         });
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

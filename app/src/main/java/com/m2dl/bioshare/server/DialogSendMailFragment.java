@@ -1,24 +1,16 @@
-package com.m2dl.bioshare.dialogFragment;
+package com.m2dl.bioshare.server;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.m2dl.bioshare.PhotoActivity;
 import com.m2dl.bioshare.R;
-import com.m2dl.bioshare.mail.DataToSend;
-import com.m2dl.bioshare.mail.Mail;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,7 +74,7 @@ public class DialogSendMailFragment extends DialogFragment {
                                             "\n M2DL,";
 
 
-                                    sender.sendMailTo(addrMailChoisi, "Projet Biodiversité [UE TER]", bodyOfMail);
+                                    sender.send(addrMailChoisi, "Projet Biodiversité [UE TER]", bodyOfMail);
 
 
                                 }

@@ -1,11 +1,8 @@
 package com.m2dl.bioshare;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -31,12 +28,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.m2dl.bioshare.dialogFragment.DialogSendMailFragment;
-import com.m2dl.bioshare.globalPseudo.GlobalClass;
-import com.m2dl.bioshare.mail.DataToSend;
+import com.m2dl.bioshare.server.DialogSendMailFragment;
+import com.m2dl.bioshare.persistance.GlobalClass;
+import com.m2dl.bioshare.server.DataToSend;
 
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 
@@ -50,7 +45,6 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
     private ImageView imageView;
     private Button sendPhotoButton;
     private TextView textviewInterestList;
-
     private LocationManager locationManager;
     private DialogSendMailFragment dialogSendMailFragment;
     private DataToSend data = new DataToSend();
@@ -276,7 +270,6 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
         // Create an instance of the dialog fragment and show it
         dialogSendMailFragment = new DialogSendMailFragment();
         dialogSendMailFragment.setData(data);
-
         dialogSendMailFragment.show(getFragmentManager(), "sendMailDialog");
 
     }
@@ -296,9 +289,8 @@ public class PhotoActivity extends ActionBarActivity implements LocationListener
     public void onTouchImageView(MotionEvent event){
         x= String.valueOf(event.getX());
         y=String.valueOf(event.getY());
-Intent intent=new Intent(PhotoActivity.this,ListViewData.class);
+        Intent intent=new Intent(PhotoActivity.this,ListViewData.class);
         intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
-        //intent.putExtra("pointInteret","");
         startActivityForResult(intent, 1);
 
     }

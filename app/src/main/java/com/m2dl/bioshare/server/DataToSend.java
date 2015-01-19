@@ -1,8 +1,5 @@
-package com.m2dl.bioshare.mail;
+package com.m2dl.bioshare.server;
 
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by oussama on 18/01/2015.
@@ -44,16 +41,6 @@ public class DataToSend {
         this.pseudo = pseudo;
     }
 
-
-/*
-    public String getPointInterretAsString() {
-        String formatedListString = "";
-        for (int i = 0; i < pointInteret.size(); i++) {
-            formatedListString += "Point d\'intérêt " + i + " : " + pointInteret.get(i) + "\n";
-        }
-        return formatedListString;
-    }
-*/
     public double getLatitude() {
         return latitude;
     }
