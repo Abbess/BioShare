@@ -72,6 +72,7 @@ public class DialogSendMailFragment extends DialogFragment {
                                     bodyOfMail = "Bonjour,"+
                                             "\n\n Veuillez trouver ci-dessous les informations relatives à la photo : "+
                                             "\n\n Commentaire : " + dataToSend.getComment()+
+                                            "\n\n Date : " + dataToSend.getDate()+
                                             "\n\n Latitude : "+dataToSend.getLatitude()+
                                             "\n\n Longitude : "+dataToSend.getLatitude()+
                                             "\n\n Points D'intérêt : "+dataToSend.getPointInteret()+

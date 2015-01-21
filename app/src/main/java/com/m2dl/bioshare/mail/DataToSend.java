@@ -2,6 +2,7 @@ package com.m2dl.bioshare.mail;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ public class DataToSend {
     private String fileName = "";
     private String pointInteret="";
     private String pseudo = "";
+    private String date="";
 
 
     public String getPointInteret() {
@@ -34,6 +36,16 @@ public class DataToSend {
     }
 
     public DataToSend() {
+    }
+
+    public String getDate() {
+        Calendar rightNow = Calendar.getInstance();
+       // System.out.println(rightNow.get(Calendar.DAY_OF_MONTH)+"/"+rightNow.get(Calendar.MONTH)+"/"+rightNow.get(Calendar.YEAR));
+        return rightNow.get(Calendar.DAY_OF_MONTH)+"/"+(rightNow.get(Calendar.MONTH)+1)+"/"+rightNow.get(Calendar.YEAR);
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getPseudo() {
